@@ -1,16 +1,19 @@
 import React from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
 
-import { Button } from './components/Button';
+import { Home } from './pages/Home';
+import { NewRoom } from './pages/NewRoom';
 
-import './services/firebase';
+import { AuthContextProvider } from './contexts/AuthContext';
 
 const App: React.FC = () => {
   return (
-    <div>
-      <h1>Hello World</h1>
-
-      <Button />
-    </div>
+    <BrowserRouter>
+      <AuthContextProvider>
+        <Route path="/" exact component={Home} />
+        <Route path="/rooms/new" component={NewRoom} />
+      </AuthContextProvider>
+    </BrowserRouter>
   );
 };
 

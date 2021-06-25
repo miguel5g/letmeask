@@ -1,4 +1,6 @@
-#page-auth {
+import styled from 'styled-components';
+
+export const AuthContainer = styled.div`
   display: flex;
   align-items: stretch;
   height: 100vh;
@@ -32,18 +34,18 @@
       color: #f8f8f8;
     }
   }
+`;
 
-  main {
-    flex: 8;
+export const MainContainer = styled.main`
+  flex: 8;
 
-    padding: 0 32px;
+  padding: 0 32px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  .main-content {
+  > div {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -90,55 +92,55 @@
       }
     }
   }
+`;
 
-  .create-room {
-    margin-top: 64px;
-    height: 50px;
-    border-radius: 8px;
-    font-weight: 500;
-    background: #ea4335;
-    color: #fff;
+export const CreateRoomButton = styled.button`
+  margin-top: 64px;
+  height: 50px;
+  border-radius: 8px;
+  font-weight: 500;
+  background: #ea4335;
+  color: #fff;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    cursor: pointer;
-    border: 0;
+  cursor: pointer;
+  border: 0;
 
-    transition: filter 0.2s;
+  transition: filter 0.2s;
 
-    img {
-      margin-right: 8px;
-    }
-
-    &:hover {
-      filter: brightness(0.9);
-    }
+  img {
+    margin-right: 8px;
   }
 
-  .separator {
-    font-size: 14px;
-    color: #a8a8b3;
-
-    margin: 32px 0;
-    display: flex;
-    align-items: center;
-
-    &::before {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: #a8a8b3;
-      margin-right: 16px;
-    }
-
-    &::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: #a8a8b3;
-      margin-left: 16px;
-    }
+  &:hover {
+    filter: brightness(0.9);
   }
-}
+`;
+
+export const Separator = styled.div`
+  font-size: 14px;
+  color: #a8a8b3;
+
+  margin: 32px 0;
+  display: flex;
+  align-items: center;
+
+  &::before {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #a8a8b3;
+    margin-right: 16px;
+  }
+
+  &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #a8a8b3;
+    margin-left: 16px;
+  }
+`;

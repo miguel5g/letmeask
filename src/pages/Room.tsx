@@ -10,7 +10,12 @@ import { useAuth } from '../hooks/useAuth';
 import { useRoom } from '../hooks/useRoom';
 import { database } from '../services/firebase';
 
-import '../styles/pages/room.scss';
+import {
+  FormContainer,
+  HeaderContainer,
+  QuestionList,
+  RoomContainer,
+} from '../styles/pages/Room';
 
 type RoomParams = {
   id: string;
@@ -67,28 +72,28 @@ export const Room: React.FC = () => {
   }
 
   return (
-    <div id="page-room">
-      <header>
-        <div className="content">
+    <RoomContainer>
+      <HeaderContainer>
+        <div>
           <img src={logoImg} alt="Letmeask" />
           <RoomCode code={roomId} />
         </div>
-      </header>
+      </HeaderContainer>
 
       <main>
-        <div className="room-title">
+        <div>
           <h1>Sala {title}</h1>
           {questions.length > 0 && <span>{questions.length} pergunta(s)</span>}
         </div>
 
-        <form onSubmit={handleSendQuestion}>
+        <FormContainer onSubmit={handleSendQuestion}>
           <textarea
             placeholder="O que você quer perguntar?"
             onChange={(event) => setNewQuestion(event.target.value)}
             value={newQuestion}
           />
 
-          <div className="form-footer">
+          <footer>
             {user ? (
               <div className="user-info">
                 <img src={user.avatar} alt={user.name} />
@@ -102,10 +107,10 @@ export const Room: React.FC = () => {
             <Button type="submit" disabled={!user}>
               Enviar pergunta
             </Button>
-          </div>
-        </form>
+          </footer>
+        </FormContainer>
 
-        <div className="question-list">
+        <QuestionList>
           {questions.map((question) => {
             return (
               <Question
@@ -147,8 +152,8 @@ export const Room: React.FC = () => {
               </Question>
             );
           })}
-        </div>
+        </QuestionList>
       </main>
-    </div>
+    </RoomContainer>
   );
 };

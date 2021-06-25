@@ -10,7 +10,12 @@ import { useAuth } from '../hooks/useAuth';
 
 import { database } from '../services/firebase';
 
-import '../styles/pages/auth.scss';
+import {
+  AuthContainer,
+  CreateRoomButton,
+  MainContainer,
+  Separator,
+} from '../styles/pages/Auth';
 
 export const Home: React.FC = () => {
   const history = useHistory();
@@ -48,7 +53,7 @@ export const Home: React.FC = () => {
   }
 
   return (
-    <div id="page-auth">
+    <AuthContainer>
       <aside>
         <img
           src={illustrationImg}
@@ -57,14 +62,17 @@ export const Home: React.FC = () => {
         <strong>Crie salas de Q&amp;A ao-vivo</strong>
         <p>Tire as dúvidas da sua audiência em tempo-real</p>
       </aside>
-      <main>
-        <div className="main-content">
+
+      <MainContainer>
+        <div>
           <img src={logoImg} alt="Letmeask" />
-          <button onClick={handleCreateRoom} className="create-room">
+          <CreateRoomButton onClick={handleCreateRoom}>
             <img src={googleIconImg} alt="Logo do Google" />
             Crie sua sala com o Google
-          </button>
-          <div className="separator">ou entre em uma sala</div>
+          </CreateRoomButton>
+
+          <Separator>ou entre em uma sala</Separator>
+
           <form onSubmit={handleJoinRoom}>
             <input
               type="text"
@@ -75,7 +83,7 @@ export const Home: React.FC = () => {
             <Button type="submit">Entrar na sala</Button>
           </form>
         </div>
-      </main>
-    </div>
+      </MainContainer>
+    </AuthContainer>
   );
 };

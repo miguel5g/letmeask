@@ -8,7 +8,7 @@ import { Button } from '../components/Button';
 import { database } from '../services/firebase';
 import { useAuth } from '../hooks/useAuth';
 
-import '../styles/pages/auth.scss';
+import { AuthContainer, MainContainer } from '../styles/pages/Auth';
 
 export const NewRoom: React.FC = () => {
   const { user } = useAuth();
@@ -33,7 +33,7 @@ export const NewRoom: React.FC = () => {
   }
 
   return (
-    <div id="page-auth">
+    <AuthContainer>
       <aside>
         <img
           src={illustrationImg}
@@ -42,8 +42,8 @@ export const NewRoom: React.FC = () => {
         <strong>Crie salas de Q&amp;A ao-vivo</strong>
         <p>Tire as dúvidas da sua audiência em tempo-real</p>
       </aside>
-      <main>
-        <div className="main-content">
+      <MainContainer>
+        <div>
           <img src={logoImg} alt="Letmeask" />
           <h2>Criar uma nova sala</h2>
           <form onSubmit={handleCreateRoom}>
@@ -59,7 +59,7 @@ export const NewRoom: React.FC = () => {
             Quer entrar em uma sala existente? <Link to="/">clique aqui</Link>
           </p>
         </div>
-      </main>
-    </div>
+      </MainContainer>
+    </AuthContainer>
   );
 };

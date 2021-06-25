@@ -12,7 +12,11 @@ import { RoomCode } from '../components/RoomCode';
 import { useRoom } from '../hooks/useRoom';
 import { database } from '../services/firebase';
 
-import '../styles/pages/room.scss';
+import {
+  HeaderContainer,
+  QuestionList,
+  RoomContainer,
+} from '../styles/pages/Room';
 
 type RoomParams = {
   id: string;
@@ -52,9 +56,9 @@ export const AdminRoom: React.FC = () => {
   }
 
   return (
-    <div id="page-room">
-      <header>
-        <div className="content">
+    <RoomContainer>
+      <HeaderContainer>
+        <div>
           <img src={logoImg} alt="Letmeask" />
           <div>
             <RoomCode code={roomId} />
@@ -63,7 +67,7 @@ export const AdminRoom: React.FC = () => {
             </Button>
           </div>
         </div>
-      </header>
+      </HeaderContainer>
 
       <main>
         <div className="room-title">
@@ -71,7 +75,7 @@ export const AdminRoom: React.FC = () => {
           {questions.length > 0 && <span>{questions.length} pergunta(s)</span>}
         </div>
 
-        <div className="question-list">
+        <QuestionList>
           {questions.map((question) => {
             return (
               <Question
@@ -109,8 +113,8 @@ export const AdminRoom: React.FC = () => {
               </Question>
             );
           })}
-        </div>
+        </QuestionList>
       </main>
-    </div>
+    </RoomContainer>
   );
 };

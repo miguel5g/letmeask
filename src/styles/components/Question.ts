@@ -1,4 +1,24 @@
-.question {
+import styled, { css } from 'styled-components';
+
+type QuestionProps = {
+  isHighlighted: boolean;
+  isAnswered: boolean;
+};
+
+const AnsweredQuestion = css`
+  background: #dbdcdd;
+`;
+
+const HighlightedQuestion = css`
+  background: #f4f0ff;
+  border: 1px solid #835afd;
+
+  footer .user-info span {
+    color: #29292e;
+  }
+`;
+
+export const QuestionContainer = styled.div<QuestionProps>`
   background: #fefefe;
   border-radius: 8px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
@@ -8,17 +28,14 @@
     margin-top: 8px;
   }
 
-  &.highlighted {
-    background: #f4f0ff;
-    border: 1px solid #835afd;
+  ${({ isAnswered }) => (isAnswered ? AnsweredQuestion : undefined)};
+  ${({ isAnswered, isHighlighted }) =>
+    isHighlighted && !isAnswered ? HighlightedQuestion : undefined};
 
-    footer .user-info span {
-      color: #29292e;
-    }
+  &.highlighted {
   }
 
   &.answered {
-    background: #dbdcdd;
   }
 
   p {
@@ -30,23 +47,6 @@
     justify-content: space-between;
     align-items: center;
     margin-top: 24px;
-
-    .user-info {
-      display: flex;
-      align-items: center;
-
-      img {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-      }
-
-      span {
-        margin-left: 8px;
-        color: #737380;
-        font-size: 14px;
-      }
-    }
 
     > div {
       display: flex;
@@ -79,4 +79,21 @@
       }
     }
   }
-}
+`;
+
+export const UserInfoContainer = styled.div`
+  display: flex;
+  align-items: center;
+
+  img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+  }
+
+  span {
+    margin-left: 8px;
+    color: #737380;
+    font-size: 14px;
+  }
+`;

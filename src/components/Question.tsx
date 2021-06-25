@@ -1,7 +1,9 @@
 import React from 'react';
-import cx from 'classnames';
 
-import './styles.scss';
+import {
+  QuestionContainer,
+  UserInfoContainer,
+} from '../styles/components/Question';
 
 type QuestionProps = {
   content: string;
@@ -21,21 +23,15 @@ export const Question: React.FC<QuestionProps> = ({
   isHighlighted = false,
 }) => {
   return (
-    <div
-      className={cx(
-        'question',
-        { answered: isAnswered },
-        { highlighted: isHighlighted && !isAnswered }
-      )}
-    >
+    <QuestionContainer isAnswered={isAnswered} isHighlighted={isHighlighted}>
       <p>{content}</p>
       <footer>
-        <div className="user-info">
+        <UserInfoContainer>
           <img src={author.avatar} alt={author.name} />
           <span>{author.name}</span>
-        </div>
+        </UserInfoContainer>
         <div>{children}</div>
       </footer>
-    </div>
+    </QuestionContainer>
   );
 };

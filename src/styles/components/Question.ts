@@ -6,20 +6,20 @@ type QuestionProps = {
 };
 
 const AnsweredQuestion = css`
-  background: #dbdcdd;
+  background: ${({ theme }) => theme.colors.grayLight};
 `;
 
 const HighlightedQuestion = css`
   background: #f4f0ff;
-  border: 1px solid #835afd;
+  border: 1px solid ${({ theme }) => theme.colors.purple};
 
   footer .user-info span {
-    color: #29292e;
+    color: ${({ theme }) => theme.colors.black};
   }
 `;
 
 export const QuestionContainer = styled.div<QuestionProps>`
-  background: #fefefe;
+  background: ${({ theme }) => theme.colors.whiteDetails};
   border-radius: 8px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
   padding: 24px;
@@ -39,7 +39,7 @@ export const QuestionContainer = styled.div<QuestionProps>`
   }
 
   p {
-    color: #29292e;
+    color: ${({ theme }) => theme.colors.black};
   }
 
   footer {
@@ -62,14 +62,14 @@ export const QuestionContainer = styled.div<QuestionProps>`
       &.like-button {
         display: flex;
         align-items: flex-end;
-        color: #737380;
+        color: ${({ theme }) => theme.colors.grayDark};
         gap: 8px;
 
         &.liked {
-          color: #835afd;
+          color: ${({ theme }) => theme.colors.purple};
 
           svg path {
-            stroke: #835afd;
+            stroke: ${({ theme }) => theme.colors.purple};
           }
         }
       }
@@ -93,7 +93,7 @@ export const UserInfoContainer = styled.div`
 
   span {
     margin-left: 8px;
-    color: #737380;
+    color: ${({ theme }) => theme.colors.grayDark};
     font-size: 14px;
   }
 `;

@@ -6,13 +6,13 @@ export const RoomCodeButtonContainer = styled.button`
   overflow: hidden;
 
   background: #fff;
-  border: 1px solid #835afd;
+  border: 1px solid ${({ theme }) => theme.colors.purple};
   cursor: pointer;
 
   display: flex;
 
   div {
-    background: #835afd;
+    background: ${({ theme }) => theme.colors.purple};
     padding: 0 12px;
     display: flex;
     justify-content: center;

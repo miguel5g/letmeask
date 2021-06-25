@@ -2,15 +2,15 @@ import styled, { css } from 'styled-components';
 
 const OutlinedButton = css`
   background: #fff;
-  border: 1px solid #835afd;
-  color: #835afd;
+  border: 1px solid ${({ theme }) => theme.colors.purple};
+  color: ${({ theme }) => theme.colors.purple};
 `;
 
 export const ButtonContainer = styled.button`
   height: 50px;
   border-radius: 8px;
   font-weight: 500;
-  background: #835afd;
+  background: ${({ theme }) => theme.colors.purple};
   color: #fff;
   padding: 0 32px;
 

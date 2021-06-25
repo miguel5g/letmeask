@@ -8,8 +8,8 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   body {
-    background: #f8f8f8;
-    color: #29292e;
+    background: ${({ theme }) => theme.colors.whiteBackground};
+    color: ${({ theme }) => theme.colors.black};
   }
 
   body,

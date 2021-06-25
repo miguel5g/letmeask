@@ -8,7 +8,7 @@ export const AuthContainer = styled.div`
   aside {
     flex: 7;
 
-    background: #835afd;
+    background: ${({ theme }) => theme.colors.purple};
     color: #fff;
 
     display: flex;
@@ -31,7 +31,7 @@ export const AuthContainer = styled.div`
       font-size: 24px;
       line-height: 32px;
       margin-top: 16px;
-      color: #f8f8f8;
+      color: ${({ theme }) => theme.colors.whiteBackground};
     }
   }
 `;
@@ -69,7 +69,7 @@ export const MainContainer = styled.main`
         border-radius: 8px;
         padding: 0 16px;
         background: #fff;
-        border: 1px solid #a8a8b3;
+        border: 1px solid ${({ theme }) => theme.colors.grayMedium};
       }
 
       button {
@@ -84,11 +84,11 @@ export const MainContainer = styled.main`
 
     p {
       font-size: 14px;
-      color: #737380;
+      color: ${({ theme }) => theme.colors.grayDark};
       margin-top: 16px;
 
       a {
-        color: #e559f9;
+        color: ${({ theme }) => theme.colors.pinkDark};
       }
     }
   }
@@ -122,7 +122,7 @@ export const CreateRoomButton = styled.button`
 
 export const Separator = styled.div`
   font-size: 14px;
-  color: #a8a8b3;
+  color: ${({ theme }) => theme.colors.grayMedium};
 
   margin: 32px 0;
   display: flex;
@@ -132,7 +132,7 @@ export const Separator = styled.div`
     content: '';
     flex: 1;
     height: 1px;
-    background: #a8a8b3;
+    background: ${({ theme }) => theme.colors.grayMedium};
     margin-right: 16px;
   }
 
@@ -140,7 +140,7 @@ export const Separator = styled.div`
     content: '';
     flex: 1;
     height: 1px;
-    background: #a8a8b3;
+    background: ${({ theme }) => theme.colors.grayMedium};
     margin-left: 16px;
   }
 `;

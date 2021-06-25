@@ -7,6 +7,7 @@ import { Room } from './pages/Room';
 import { AdminRoom } from './pages/AdminRoom';
 
 import { AuthContextProvider } from './contexts/AuthContext';
+import { ThemeContextProvider } from './contexts/ThemeContext';
 
 import { GlobalStyles } from './styles/Global';
 
@@ -14,15 +15,17 @@ const App: React.FC = () => {
   return (
     <BrowserRouter>
       <AuthContextProvider>
-        <GlobalStyles />
+        <ThemeContextProvider>
+          <GlobalStyles />
 
-        <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/rooms/new" exact component={NewRoom} />
-          <Route path="/rooms/:id" component={Room} />
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/rooms/new" exact component={NewRoom} />
+            <Route path="/rooms/:id" component={Room} />
 
-          <Route path="/admin/rooms/:id" component={AdminRoom} />
-        </Switch>
+            <Route path="/admin/rooms/:id" component={AdminRoom} />
+          </Switch>
+        </ThemeContextProvider>
       </AuthContextProvider>
     </BrowserRouter>
   );

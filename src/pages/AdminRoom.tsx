@@ -84,9 +84,11 @@ export const AdminRoom: React.FC = () => {
     });
   }
 
-  async function handleHighlightQuestion(questionId: string) {
+  async function handleToggleHighlightQuestion(questionId: string) {
+    const question = questions.find((item) => item.id === questionId);
+
     await database.ref(`rooms/${roomId}/questions/${questionId}`).update({
-      isHighlighted: true,
+      isHighlighted: !question?.isHighlighted ?? true,
     });
   }
 
@@ -187,7 +189,9 @@ export const AdminRoom: React.FC = () => {
                             ? theme.colors.purple
                             : undefined
                         }
-                        onClick={() => handleHighlightQuestion(question.id)}
+                        onClick={() =>
+                          handleToggleHighlightQuestion(question.id)
+                        }
                       >
                         <FiMessageSquare size={24} />
                       </IconButton>

@@ -9,6 +9,7 @@ import emptyQuestionsImg from '../assets/images/empty-questions.svg';
 import { Button } from '../components/Button';
 import { Question } from '../components/Question';
 import { RoomCode } from '../components/RoomCode';
+import { Loading } from '../components/Loading';
 
 import { useAuth } from '../hooks/useAuth';
 import { useRoom } from '../hooks/useRoom';
@@ -33,11 +34,10 @@ export const Room: React.FC = () => {
   const params = useParams<RoomParams>();
   const [newQuestion, setNewQuestion] = useState('');
 
-  const { theme, toggleTheme } = useTheme();
-
   const roomId = params.id;
 
-  const { title, questions } = useRoom(roomId);
+  const { theme, toggleTheme } = useTheme();
+  const { title, questions, isLoading } = useRoom(roomId);
 
   async function handleSendQuestion(event: React.FormEvent) {
     event.preventDefault();
@@ -82,6 +82,8 @@ export const Room: React.FC = () => {
 
   return (
     <RoomContainer>
+      {isLoading && <Loading />}
+
       <HeaderContainer>
         <div>
           <img

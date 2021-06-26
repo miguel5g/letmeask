@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 import {
   FiSun,
   FiMoon,
@@ -16,6 +17,7 @@ import emptyQuestionsImg from '../assets/images/empty-questions.svg';
 import { Button } from '../components/Button';
 import { Question } from '../components/Question';
 import { RoomCode } from '../components/RoomCode';
+import { Loading } from '../components/Loading';
 
 import { useRoom } from '../hooks/useRoom';
 import { useAuth } from '../hooks/useAuth';
@@ -42,7 +44,14 @@ export const AdminRoom: React.FC = () => {
   const { user } = useAuth();
   const { theme, toggleTheme } = useTheme();
 
-  const { title, questions } = useRoom(roomId);
+  const { title, questions, isAdmin, isLoading } = useRoom(roomId);
+
+  useEffect(() => {
+    if (!isLoading && !isAdmin) {
+      toast.error('Você não pode acessar esta página');
+      history.replace('/');
+    }
+  }, [isAdmin, isLoading, history]);
 
   async function handleEndRoom() {
     await database.ref(`rooms/${roomId}`).update({
@@ -87,6 +96,8 @@ export const AdminRoom: React.FC = () => {
 
   return (
     <RoomContainer>
+      {isLoading && <Loading />}
+
       <HeaderContainer>
         <div>
           <img

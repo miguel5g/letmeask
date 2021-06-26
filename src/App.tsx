@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 
 import { Home } from './pages/Home';
 import { NewRoom } from './pages/NewRoom';
@@ -16,6 +17,7 @@ const App: React.FC = () => {
     <BrowserRouter>
       <AuthContextProvider>
         <ThemeContextProvider>
+          <Toaster />
           <GlobalStyles />
 
           <Switch>

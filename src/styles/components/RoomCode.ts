@@ -5,7 +5,7 @@ export const RoomCodeButtonContainer = styled.button`
   border-radius: 8px;
   overflow: hidden;
 
-  background: ${({ theme }) => theme.colors.whiteDetails};
+  background: ${({ theme }) => theme.colors.whiteBackground};
   border: 1px solid ${({ theme }) => theme.colors.purple};
   cursor: pointer;
   color: ${({ theme }) => theme.colors.black};
@@ -13,6 +13,7 @@ export const RoomCodeButtonContainer = styled.button`
   display: flex;
 
   div {
+    color: #f8f8f8;
     background: ${({ theme }) => theme.colors.purple};
     padding: 0 12px;
     display: flex;

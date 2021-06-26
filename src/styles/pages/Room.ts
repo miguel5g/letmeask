@@ -114,3 +114,19 @@ export const FormContainer = styled.form`
     }
   }
 `;
+
+export const IconButton = styled.button<{ hoverColor?: string }>`
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  transition: filter 0.2s;
+  color: ${({ theme, color }) => color || theme.colors.grayDark};
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+
+  &:hover {
+    color: ${({ hoverColor }) => hoverColor};
+    filter: brightness(0.7);
+  }
+`;

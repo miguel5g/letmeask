@@ -53,21 +53,6 @@ export const QuestionContainer = styled.div<QuestionProps>`
       cursor: pointer;
       transition: filter 0.2s;
 
-      &.like-button {
-        display: flex;
-        align-items: flex-end;
-        color: ${({ theme }) => theme.colors.grayDark};
-        gap: 8px;
-
-        &.liked {
-          color: ${({ theme }) => theme.colors.purple};
-
-          svg path {
-            stroke: ${({ theme }) => theme.colors.purple};
-          }
-        }
-      }
-
       &:hover {
         filter: brightness(0.7);
       }

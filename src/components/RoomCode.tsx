@@ -1,6 +1,5 @@
 import React from 'react';
-
-import copyImg from '../assets/images/copy.svg';
+import { FiCopy } from 'react-icons/fi';
 
 import { RoomCodeButtonContainer } from '../styles/components/RoomCode';
 
@@ -16,7 +15,7 @@ export const RoomCode: React.FC<RoomCodeProps> = (props) => {
   return (
     <RoomCodeButtonContainer onClick={copyRoomCodeToClipboard}>
       <div>
-        <img src={copyImg} alt="Copy room code" />
+        <FiCopy size={20} />
       </div>
       <span>Sala #{props.code}</span>
     </RoomCodeButtonContainer>

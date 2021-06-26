@@ -1,23 +1,29 @@
 import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { FiSun, FiMoon } from 'react-icons/fi';
+import {
+  FiSun,
+  FiMoon,
+  FiCheckCircle,
+  FiMessageSquare,
+  FiThumbsUp,
+  FiTrash,
+} from 'react-icons/fi';
 
 import logoImg from '../assets/images/logo.svg';
 import logoDarkImg from '../assets/images/logo-dark.svg';
-import deleteImg from '../assets/images/delete.svg';
-import checkImg from '../assets/images/check.svg';
-import answerImg from '../assets/images/answer.svg';
 
 import { Button } from '../components/Button';
 import { Question } from '../components/Question';
 import { RoomCode } from '../components/RoomCode';
 
-import { database } from '../services/firebase';
 import { useRoom } from '../hooks/useRoom';
+import { useAuth } from '../hooks/useAuth';
 import { useTheme } from '../hooks/useTheme';
+import { database } from '../services/firebase';
 
 import {
   HeaderContainer,
+  IconButton,
   QuestionList,
   RoomContainer,
 } from '../styles/pages/Room';
@@ -31,6 +37,7 @@ export const AdminRoom: React.FC = () => {
   const params = useParams<RoomParams>();
   const roomId = params.id;
 
+  const { user } = useAuth();
   const { theme, toggleTheme } = useTheme();
 
   const { title, questions } = useRoom(roomId);
@@ -59,6 +66,21 @@ export const AdminRoom: React.FC = () => {
     await database.ref(`rooms/${roomId}/questions/${questionId}`).update({
       isHighlighted: true,
     });
+  }
+
+  async function handleLikeQuestion(
+    questionId: string,
+    likeId: string | undefined
+  ) {
+    if (likeId) {
+      await database
+        .ref(`rooms/${roomId}/questions/${questionId}/likes/${likeId}`)
+        .remove();
+    } else {
+      await database.ref(`rooms/${roomId}/questions/${questionId}/likes`).push({
+        authorId: user?.id,
+      });
+    }
   }
 
   return (
@@ -99,29 +121,46 @@ export const AdminRoom: React.FC = () => {
               >
                 {!question.isAnswered && (
                   <>
-                    <button
+                    <IconButton
+                      type="button"
+                      aria-label="Marcar como gostei"
+                      color={question.likeId ? theme.colors.purple : undefined}
+                      onClick={() =>
+                        handleLikeQuestion(question.id, question.likeId)
+                      }
+                    >
+                      {question.likeCount > 0 && (
+                        <span>{question.likeCount}</span>
+                      )}
+                      <FiThumbsUp size={24} />
+                    </IconButton>
+                    <IconButton
+                      aria-label="Marcar pergunta como respondida"
                       type="button"
                       onClick={() => handleCheckQuestionAsAnswered(question.id)}
                     >
-                      <img
-                        src={checkImg}
-                        alt="Marcar pergunta como respondida"
-                      />
-                    </button>
-                    <button
+                      <FiCheckCircle size={24} />
+                    </IconButton>
+                    <IconButton
                       type="button"
+                      aria-label="Dar destaque à pergunta"
+                      color={
+                        question.isHighlighted ? theme.colors.purple : undefined
+                      }
                       onClick={() => handleHighlightQuestion(question.id)}
                     >
-                      <img src={answerImg} alt="Dar destaque à pergunta" />
-                    </button>
+                      <FiMessageSquare size={24} />
+                    </IconButton>
                   </>
                 )}
-                <button
+                <IconButton
                   type="button"
+                  aria-label="Remover pergunta"
+                  hoverColor={theme.colors.hoverDanger}
                   onClick={() => handleDeleteQuestion(question.id)}
                 >
-                  <img src={deleteImg} alt="Remover pergunta" />
-                </button>
+                  <FiTrash size={24} />
+                </IconButton>
               </Question>
             );
           })}

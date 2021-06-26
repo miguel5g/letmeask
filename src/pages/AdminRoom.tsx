@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import {
@@ -19,6 +19,8 @@ import { Button } from '../components/Button';
 import { Question } from '../components/Question';
 import { RoomCode } from '../components/RoomCode';
 import { Loading } from '../components/Loading';
+import { EndRoomModal } from '../components/EndRoomModal';
+import { DeleteQuestionModal } from '../components/DeleteQuestionModal';
 
 import { useRoom } from '../hooks/useRoom';
 import { useAuth } from '../hooks/useAuth';
@@ -41,6 +43,9 @@ export const AdminRoom: React.FC = () => {
   const history = useHistory();
   const params = useParams<RoomParams>();
   const roomId = params.id;
+  const [isEndRoomModalOpen, setIsEndRoomModalOpen] = useState<() => void>();
+  const [isDeleteQuestionModalOpen, setIsDeleteQuestionModalOpen] =
+    useState<() => void>();
 
   const { user, singOut } = useAuth();
   const { theme, toggleTheme } = useTheme();
@@ -65,17 +70,25 @@ export const AdminRoom: React.FC = () => {
   }
 
   async function handleEndRoom() {
-    await database.ref(`rooms/${roomId}`).update({
-      endedAt: new Date(),
-    });
+    async function EndRoom() {
+      await database.ref(`rooms/${roomId}`).update({
+        endedAt: new Date(),
+      });
 
-    history.push('/');
+      history.push('/');
+    }
+
+    setIsEndRoomModalOpen(() => EndRoom);
   }
 
   async function handleDeleteQuestion(questionId: string) {
-    if (window.confirm('Tem certeza que você deseja excluir esta pergunta?')) {
+    async function deleteQuestion() {
+      setIsDeleteQuestionModalOpen(undefined);
+
       await database.ref(`rooms/${roomId}/questions/${questionId}`).remove();
     }
+
+    setIsDeleteQuestionModalOpen(() => deleteQuestion);
   }
 
   async function handleCheckQuestionAsAnswered(questionId: string) {
@@ -220,6 +233,20 @@ export const AdminRoom: React.FC = () => {
           )}
         </QuestionList>
       </main>
+
+      <EndRoomModal
+        isOpen={isEndRoomModalOpen !== undefined}
+        onRequestClose={() => setIsEndRoomModalOpen(undefined)}
+        onCancel={() => setIsEndRoomModalOpen(undefined)}
+        onContinue={isEndRoomModalOpen}
+      />
+
+      <DeleteQuestionModal
+        isOpen={isDeleteQuestionModalOpen !== undefined}
+        onRequestClose={() => setIsDeleteQuestionModalOpen(undefined)}
+        onCancel={() => setIsDeleteQuestionModalOpen(undefined)}
+        onContinue={isDeleteQuestionModalOpen}
+      />
     </RoomContainer>
   );
 };

@@ -99,15 +99,15 @@ export const CreateRoomButton = styled.button`
   height: 50px;
   border-radius: 8px;
   font-weight: 500;
-  background: #ea4335;
-  color: #fff;
+  background: transparent;
+  color: ${({ theme }) => theme.colors.black};
 
   display: flex;
   justify-content: center;
   align-items: center;
 
   cursor: pointer;
-  border: 0;
+  border: 1px solid ${({ theme }) => theme.colors.grayMedium};
 
   transition: filter 0.2s;
 

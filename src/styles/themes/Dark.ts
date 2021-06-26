@@ -4,8 +4,8 @@ const light: DefaultTheme = {
   title: 'dark',
 
   colors: {
-    black: '#29292E',
-    shadow: '#050206',
+    black: '#F8F8F8',
+    shadow: '#A8A8B3',
     purple: '#835AFD',
     danger: '#E73F5D',
 
@@ -13,8 +13,8 @@ const light: DefaultTheme = {
     grayMedium: '#A8A8B3',
     grayLight: '#DBDCDD',
 
-    whiteBackground: '#F8F8F8',
-    whiteDetails: '#FEFEFE',
+    whiteBackground: '#252525',
+    whiteDetails: '#1E1E1E',
 
     pinkDark: '#E559F9',
     pinkLight: '#D67EE2',

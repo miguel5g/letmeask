@@ -5,9 +5,10 @@ export const RoomCodeButtonContainer = styled.button`
   border-radius: 8px;
   overflow: hidden;
 
-  background: #fff;
+  background: ${({ theme }) => theme.colors.whiteDetails};
   border: 1px solid ${({ theme }) => theme.colors.purple};
   cursor: pointer;
+  color: ${({ theme }) => theme.colors.black};
 
   display: flex;
 

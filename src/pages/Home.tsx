@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import illustrationImg from '../assets/images/illustration.svg';
 import logoImg from '../assets/images/logo.svg';
+import logoDarkImg from '../assets/images/logo-dark.svg';
+import illustrationImg from '../assets/images/illustration.svg';
 import googleIconImg from '../assets/images/google-icon.svg';
 
 import { Button } from '../components/Button';
-import { useAuth } from '../hooks/useAuth';
 
 import { database } from '../services/firebase';
+import { useAuth } from '../hooks/useAuth';
+import { useTheme } from '../hooks/useTheme';
 
 import {
   AuthContainer,
@@ -21,6 +23,8 @@ export const Home: React.FC = () => {
   const history = useHistory();
   const { user, signInWithGoogle } = useAuth();
   const [roomCode, setRoomCode] = useState('');
+
+  const { theme } = useTheme();
 
   async function handleCreateRoom() {
     if (!user) {
@@ -65,7 +69,10 @@ export const Home: React.FC = () => {
 
       <MainContainer>
         <div>
-          <img src={logoImg} alt="Letmeask" />
+          <img
+            src={theme.title === 'light' ? logoImg : logoDarkImg}
+            alt="Letmeask"
+          />
           <CreateRoomButton onClick={handleCreateRoom}>
             <img src={googleIconImg} alt="Logo do Google" />
             Crie sua sala com o Google

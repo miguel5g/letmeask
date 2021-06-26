@@ -6,7 +6,6 @@ import light from '../styles/themes/Light';
 import dark from '../styles/themes/Dark';
 
 type ThemeContextType = {
-  title: string;
   theme: DefaultTheme;
   toggleTheme: () => void;
 };
@@ -30,7 +29,7 @@ export const ThemeContextProvider: React.FC = ({ children }) => {
   }
 
   return (
-    <ThemeContext.Provider value={{ title: theme.title, theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
       <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </ThemeContext.Provider>
   );

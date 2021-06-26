@@ -31,7 +31,8 @@ export const RoomContainer = styled.div`
 
 export const HeaderContainer = styled.header`
   padding: 24px;
-  border-bottom: 1px solid #e2e2e2;
+  border-bottom: 1px solid
+    ${({ theme }) => (theme.title === 'light' ? '#E3E3E3' : '#1C1C1C')};
 
   > div {
     max-width: 1120px;
@@ -56,7 +57,7 @@ export const HeaderContainer = styled.header`
 `;
 
 export const QuestionList = styled.div`
-  margin-top: 32px;
+  margin: 32px 0;
 `;
 
 export const FormContainer = styled.form`
@@ -69,6 +70,7 @@ export const FormContainer = styled.form`
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
     resize: vertical;
     min-height: 130px;
+    color: ${({ theme }) => theme.colors.black};
   }
 
   > footer {

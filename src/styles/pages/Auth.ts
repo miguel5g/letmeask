@@ -31,7 +31,7 @@ export const AuthContainer = styled.div`
       font-size: 24px;
       line-height: 32px;
       margin-top: 16px;
-      color: ${({ theme }) => theme.colors.whiteBackground};
+      color: #fff;
     }
   }
 `;

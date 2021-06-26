@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 const OutlinedButton = css`
-  background: #fff;
+  background: ${({ theme }) => theme.colors.whiteDetails};
   border: 1px solid ${({ theme }) => theme.colors.purple};
   color: ${({ theme }) => theme.colors.purple};
 `;

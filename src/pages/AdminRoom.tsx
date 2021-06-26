@@ -1,7 +1,9 @@
 import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+import { FiSun, FiMoon } from 'react-icons/fi';
 
 import logoImg from '../assets/images/logo.svg';
+import logoDarkImg from '../assets/images/logo-dark.svg';
 import deleteImg from '../assets/images/delete.svg';
 import checkImg from '../assets/images/check.svg';
 import answerImg from '../assets/images/answer.svg';
@@ -9,8 +11,10 @@ import answerImg from '../assets/images/answer.svg';
 import { Button } from '../components/Button';
 import { Question } from '../components/Question';
 import { RoomCode } from '../components/RoomCode';
-import { useRoom } from '../hooks/useRoom';
+
 import { database } from '../services/firebase';
+import { useRoom } from '../hooks/useRoom';
+import { useTheme } from '../hooks/useTheme';
 
 import {
   HeaderContainer,
@@ -26,6 +30,8 @@ export const AdminRoom: React.FC = () => {
   const history = useHistory();
   const params = useParams<RoomParams>();
   const roomId = params.id;
+
+  const { theme, toggleTheme } = useTheme();
 
   const { title, questions } = useRoom(roomId);
 
@@ -59,11 +65,17 @@ export const AdminRoom: React.FC = () => {
     <RoomContainer>
       <HeaderContainer>
         <div>
-          <img src={logoImg} alt="Letmeask" />
+          <img
+            src={theme.title === 'light' ? logoImg : logoDarkImg}
+            alt="Letmeask"
+          />
           <div>
             <RoomCode code={roomId} />
             <Button isOutlined onClick={handleEndRoom}>
               Encerrar sala
+            </Button>
+            <Button isOutlined aria-label="Inverter tema" onClick={toggleTheme}>
+              {theme.title === 'light' ? <FiMoon /> : <FiSun />}
             </Button>
           </div>
         </div>

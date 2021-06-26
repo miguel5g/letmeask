@@ -6,11 +6,11 @@ type QuestionProps = {
 };
 
 const AnsweredQuestion = css`
-  background: ${({ theme }) => theme.colors.grayLight};
+  opacity: 0.5;
 `;
 
 const HighlightedQuestion = css`
-  background: #f4f0ff;
+  background: ${({ theme }) => theme.colors.whiteDetails};
   border: 1px solid ${({ theme }) => theme.colors.purple};
 
   footer .user-info span {
@@ -24,19 +24,13 @@ export const QuestionContainer = styled.div<QuestionProps>`
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
   padding: 24px;
 
-  & + .question {
+  & + & {
     margin-top: 8px;
   }
 
   ${({ isAnswered }) => (isAnswered ? AnsweredQuestion : undefined)};
   ${({ isAnswered, isHighlighted }) =>
     isHighlighted && !isAnswered ? HighlightedQuestion : undefined};
-
-  &.highlighted {
-  }
-
-  &.answered {
-  }
 
   p {
     color: ${({ theme }) => theme.colors.black};

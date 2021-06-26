@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { FiSun, FiMoon } from 'react-icons/fi';
 
 import logoImg from '../assets/images/logo.svg';
+import logoDarkImg from '../assets/images/logo-dark.svg';
 
 import { Button } from '../components/Button';
 import { Question } from '../components/Question';
 import { RoomCode } from '../components/RoomCode';
+
 import { useAuth } from '../hooks/useAuth';
 import { useRoom } from '../hooks/useRoom';
 import { database } from '../services/firebase';
@@ -16,15 +19,18 @@ import {
   QuestionList,
   RoomContainer,
 } from '../styles/pages/Room';
+import { useTheme } from '../hooks/useTheme';
 
 type RoomParams = {
   id: string;
 };
 
 export const Room: React.FC = () => {
-  const { user } = useAuth();
+  const { user, signInWithGoogle } = useAuth();
   const params = useParams<RoomParams>();
   const [newQuestion, setNewQuestion] = useState('');
+
+  const { theme, toggleTheme } = useTheme();
 
   const roomId = params.id;
 
@@ -75,8 +81,16 @@ export const Room: React.FC = () => {
     <RoomContainer>
       <HeaderContainer>
         <div>
-          <img src={logoImg} alt="Letmeask" />
-          <RoomCode code={roomId} />
+          <img
+            src={theme.title === 'light' ? logoImg : logoDarkImg}
+            alt="Letmeask"
+          />
+          <div>
+            <RoomCode code={roomId} />
+            <Button isOutlined aria-label="Inverter tema" onClick={toggleTheme}>
+              {theme.title === 'light' ? <FiMoon /> : <FiSun />}
+            </Button>
+          </div>
         </div>
       </HeaderContainer>
 
@@ -101,7 +115,8 @@ export const Room: React.FC = () => {
               </div>
             ) : (
               <span>
-                Para enviar uma pergunta, <button>faça seu login</button>.
+                Para enviar uma pergunta,{' '}
+                <button onClick={signInWithGoogle}>faça seu login</button>.
               </span>
             )}
             <Button type="submit" disabled={!user}>

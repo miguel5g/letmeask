@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 import illustrationImg from '../assets/images/illustration.svg';
 import logoImg from '../assets/images/logo.svg';
@@ -22,6 +23,10 @@ export const NewRoom: React.FC = () => {
 
   async function handleCreateRoom(event: React.FormEvent) {
     event.preventDefault();
+
+    if (!user) {
+      return toast.error('Você precisa estar conectado para isso');
+    }
 
     if (newRoom.trim() === '') {
       return;

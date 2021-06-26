@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 import logoImg from '../assets/images/logo.svg';
 import logoDarkImg from '../assets/images/logo-dark.svg';
@@ -44,12 +45,12 @@ export const Home: React.FC = () => {
     const roomRef = await database.ref(`rooms/${roomCode}`).get();
 
     if (!roomRef.exists()) {
-      alert('Room does not exists.');
+      toast.error('Sala não existe');
       return;
     }
 
     if (roomRef.val().endedAt) {
-      alert('Room already closed.');
+      toast.error('Sala já foi encerrada');
       return;
     }
 

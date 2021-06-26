@@ -41,6 +41,7 @@ export function useRoom(roomId: string) {
   const [title, setTitle] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isClosed, setIsClosed] = useState(false);
 
   useEffect(() => {
     const roomRef = database.ref(`rooms/${roomId}`);
@@ -69,9 +70,10 @@ export function useRoom(roomId: string) {
         setIsAdmin(true);
       }
 
-      setIsLoading(false);
+      setIsClosed(databaseRoom.endedAt ? true : false);
       setTitle(databaseRoom.title);
       setQuestions(parsedQuestions);
+      setIsLoading(false);
     });
 
     return () => {
@@ -79,5 +81,5 @@ export function useRoom(roomId: string) {
     };
   }, [roomId, user?.id]);
 
-  return { questions, title, isAdmin, isLoading };
+  return { questions, title, isAdmin, isLoading, isClosed };
 }

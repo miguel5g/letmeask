@@ -8,6 +8,7 @@ import {
   FiMessageSquare,
   FiThumbsUp,
   FiTrash,
+  FiLogOut,
 } from 'react-icons/fi';
 
 import logoImg from '../assets/images/logo.svg';
@@ -41,10 +42,10 @@ export const AdminRoom: React.FC = () => {
   const params = useParams<RoomParams>();
   const roomId = params.id;
 
-  const { user } = useAuth();
+  const { user, singOut } = useAuth();
   const { theme, toggleTheme } = useTheme();
 
-  const { title, questions, isAdmin, isLoading } = useRoom(roomId);
+  const { title, questions, isAdmin, isLoading, isClosed } = useRoom(roomId);
 
   useEffect(() => {
     if (!isLoading && !isAdmin) {
@@ -52,6 +53,18 @@ export const AdminRoom: React.FC = () => {
       history.replace('/');
     }
   }, [isAdmin, isLoading, history]);
+
+  useEffect(() => {
+    if (!isLoading && isClosed) {
+      history.replace('/');
+      toast.error('Sala encerrada');
+    }
+  }, [history, isClosed, isLoading]);
+
+  function handleSingOut() {
+    singOut();
+    history.push('/');
+  }
 
   async function handleEndRoom() {
     await database.ref(`rooms/${roomId}`).update({
@@ -112,6 +125,15 @@ export const AdminRoom: React.FC = () => {
             <Button isOutlined aria-label="Inverter tema" onClick={toggleTheme}>
               {theme.title === 'light' ? <FiMoon /> : <FiSun />}
             </Button>
+            {user && (
+              <Button
+                isOutlined
+                onClick={handleSingOut}
+                aria-label="Encerrar sessão"
+              >
+                <FiLogOut />
+              </Button>
+            )}
           </div>
         </div>
       </HeaderContainer>

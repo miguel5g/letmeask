@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { FiSun, FiMoon, FiThumbsUp } from 'react-icons/fi';
+import React, { useEffect, useState } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
+import { FiSun, FiMoon, FiThumbsUp, FiLogOut } from 'react-icons/fi';
+import toast from 'react-hot-toast';
 
 import logoImg from '../assets/images/logo.svg';
 import logoDarkImg from '../assets/images/logo-dark.svg';
@@ -30,14 +31,15 @@ type RoomParams = {
 };
 
 export const Room: React.FC = () => {
-  const { user, signInWithGoogle } = useAuth();
+  const { user, signInWithGoogle, singOut } = useAuth();
   const params = useParams<RoomParams>();
   const [newQuestion, setNewQuestion] = useState('');
+  const history = useHistory();
 
   const roomId = params.id;
 
   const { theme, toggleTheme } = useTheme();
-  const { title, questions, isLoading } = useRoom(roomId);
+  const { title, questions, isLoading, isClosed } = useRoom(roomId);
 
   async function handleSendQuestion(event: React.FormEvent) {
     event.preventDefault();
@@ -80,6 +82,13 @@ export const Room: React.FC = () => {
     }
   }
 
+  useEffect(() => {
+    if (!isLoading && isClosed) {
+      history.replace('/');
+      toast.error('Sala encerrada');
+    }
+  }, [history, isClosed, isLoading]);
+
   return (
     <RoomContainer>
       {isLoading && <Loading />}
@@ -95,6 +104,11 @@ export const Room: React.FC = () => {
             <Button isOutlined aria-label="Inverter tema" onClick={toggleTheme}>
               {theme.title === 'light' ? <FiMoon /> : <FiSun />}
             </Button>
+            {user && (
+              <Button isOutlined onClick={singOut} aria-label="Encerrar sessão">
+                <FiLogOut />
+              </Button>
+            )}
           </div>
         </div>
       </HeaderContainer>

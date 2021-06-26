@@ -4,6 +4,7 @@ import { FiSun, FiMoon, FiThumbsUp } from 'react-icons/fi';
 
 import logoImg from '../assets/images/logo.svg';
 import logoDarkImg from '../assets/images/logo-dark.svg';
+import emptyQuestionsImg from '../assets/images/empty-questions.svg';
 
 import { Button } from '../components/Button';
 import { Question } from '../components/Question';
@@ -15,6 +16,7 @@ import { useTheme } from '../hooks/useTheme';
 import { database } from '../services/firebase';
 
 import {
+  EmptyQuestions,
   FormContainer,
   HeaderContainer,
   IconButton,
@@ -127,33 +129,43 @@ export const Room: React.FC = () => {
         </FormContainer>
 
         <QuestionList>
-          {questions.map((question) => {
-            return (
-              <Question
-                key={question.id}
-                content={question.content}
-                author={question.author}
-                isAnswered={question.isAnswered}
-                isHighlighted={question.isHighlighted}
-              >
-                {!question.isAnswered && (
-                  <IconButton
-                    type="button"
-                    aria-label="Marcar como gostei"
-                    color={question.likeId ? theme.colors.purple : undefined}
-                    onClick={() =>
-                      handleLikeQuestion(question.id, question.likeId)
-                    }
-                  >
-                    {question.likeCount > 0 && (
-                      <span>{question.likeCount}</span>
-                    )}
-                    <FiThumbsUp size={24} />
-                  </IconButton>
-                )}
-              </Question>
-            );
-          })}
+          {questions.length > 0 ? (
+            questions.map((question) => {
+              return (
+                <Question
+                  key={question.id}
+                  content={question.content}
+                  author={question.author}
+                  isAnswered={question.isAnswered}
+                  isHighlighted={question.isHighlighted}
+                >
+                  {!question.isAnswered && (
+                    <IconButton
+                      type="button"
+                      aria-label="Marcar como gostei"
+                      color={question.likeId ? theme.colors.purple : undefined}
+                      onClick={() =>
+                        handleLikeQuestion(question.id, question.likeId)
+                      }
+                    >
+                      {question.likeCount > 0 && (
+                        <span>{question.likeCount}</span>
+                      )}
+                      <FiThumbsUp size={24} />
+                    </IconButton>
+                  )}
+                </Question>
+              );
+            })
+          ) : (
+            <EmptyQuestions>
+              <img src={emptyQuestionsImg} alt="Nenhuma pergunta" />
+              <strong>Nenhuma pergunta por aqui...</strong>
+              <span>
+                Faça o seu login e seja a primeira pessoa a fazer uma pergunta!
+              </span>
+            </EmptyQuestions>
+          )}
         </QuestionList>
       </main>
     </RoomContainer>

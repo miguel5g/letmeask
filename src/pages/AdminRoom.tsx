@@ -11,6 +11,7 @@ import {
 
 import logoImg from '../assets/images/logo.svg';
 import logoDarkImg from '../assets/images/logo-dark.svg';
+import emptyQuestionsImg from '../assets/images/empty-questions.svg';
 
 import { Button } from '../components/Button';
 import { Question } from '../components/Question';
@@ -22,6 +23,7 @@ import { useTheme } from '../hooks/useTheme';
 import { database } from '../services/firebase';
 
 import {
+  EmptyQuestions,
   HeaderContainer,
   IconButton,
   QuestionList,
@@ -110,60 +112,77 @@ export const AdminRoom: React.FC = () => {
         </div>
 
         <QuestionList>
-          {questions.map((question) => {
-            return (
-              <Question
-                key={question.id}
-                content={question.content}
-                author={question.author}
-                isAnswered={question.isAnswered}
-                isHighlighted={question.isHighlighted}
-              >
-                {!question.isAnswered && (
-                  <>
-                    <IconButton
-                      type="button"
-                      aria-label="Marcar como gostei"
-                      color={question.likeId ? theme.colors.purple : undefined}
-                      onClick={() =>
-                        handleLikeQuestion(question.id, question.likeId)
-                      }
-                    >
-                      {question.likeCount > 0 && (
-                        <span>{question.likeCount}</span>
-                      )}
-                      <FiThumbsUp size={24} />
-                    </IconButton>
-                    <IconButton
-                      aria-label="Marcar pergunta como respondida"
-                      type="button"
-                      onClick={() => handleCheckQuestionAsAnswered(question.id)}
-                    >
-                      <FiCheckCircle size={24} />
-                    </IconButton>
-                    <IconButton
-                      type="button"
-                      aria-label="Dar destaque à pergunta"
-                      color={
-                        question.isHighlighted ? theme.colors.purple : undefined
-                      }
-                      onClick={() => handleHighlightQuestion(question.id)}
-                    >
-                      <FiMessageSquare size={24} />
-                    </IconButton>
-                  </>
-                )}
-                <IconButton
-                  type="button"
-                  aria-label="Remover pergunta"
-                  hoverColor={theme.colors.hoverDanger}
-                  onClick={() => handleDeleteQuestion(question.id)}
+          {questions.length > 0 ? (
+            questions.map((question) => {
+              return (
+                <Question
+                  key={question.id}
+                  content={question.content}
+                  author={question.author}
+                  isAnswered={question.isAnswered}
+                  isHighlighted={question.isHighlighted}
                 >
-                  <FiTrash size={24} />
-                </IconButton>
-              </Question>
-            );
-          })}
+                  {!question.isAnswered && (
+                    <>
+                      <IconButton
+                        type="button"
+                        aria-label="Marcar como gostei"
+                        color={
+                          question.likeId ? theme.colors.purple : undefined
+                        }
+                        onClick={() =>
+                          handleLikeQuestion(question.id, question.likeId)
+                        }
+                      >
+                        {question.likeCount > 0 && (
+                          <span>{question.likeCount}</span>
+                        )}
+                        <FiThumbsUp size={24} />
+                      </IconButton>
+                      <IconButton
+                        aria-label="Marcar pergunta como respondida"
+                        type="button"
+                        onClick={() =>
+                          handleCheckQuestionAsAnswered(question.id)
+                        }
+                      >
+                        <FiCheckCircle size={24} />
+                      </IconButton>
+                      <IconButton
+                        type="button"
+                        aria-label="Dar destaque à pergunta"
+                        color={
+                          question.isHighlighted
+                            ? theme.colors.purple
+                            : undefined
+                        }
+                        onClick={() => handleHighlightQuestion(question.id)}
+                      >
+                        <FiMessageSquare size={24} />
+                      </IconButton>
+                    </>
+                  )}
+                  <IconButton
+                    type="button"
+                    aria-label="Remover pergunta"
+                    hoverColor={theme.colors.hoverDanger}
+                    onClick={() => handleDeleteQuestion(question.id)}
+                  >
+                    <FiTrash size={24} />
+                  </IconButton>
+                </Question>
+              );
+            })
+          ) : (
+            <EmptyQuestions>
+              <img src={emptyQuestionsImg} alt="Nenhuma pergunta" />
+              <strong>Nenhuma pergunta por aqui...</strong>
+              <span>
+                Envie o código desta sala para seus amigos e comece a responder
+                perguntas!
+              </span>
+            </EmptyQuestions>
+          )}
         </QuestionList>
       </main>
     </RoomContainer>

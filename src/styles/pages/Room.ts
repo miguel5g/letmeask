@@ -130,3 +130,35 @@ export const IconButton = styled.button<{ hoverColor?: string }>`
     filter: brightness(0.7);
   }
 `;
+
+export const EmptyQuestions = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: 150px;
+    height: 150px;
+  }
+
+  strong {
+    margin-top: 16px;
+
+    color: ${({ theme }) => theme.colors.black};
+    font-family: Poppins;
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  span {
+    margin-top: 8px;
+    max-width: 284px;
+
+    color: ${({ theme }) => theme.colors.grayDark};
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+  }
+`;

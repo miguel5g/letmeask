@@ -58,6 +58,13 @@ export const QuestionContainer = styled.div<QuestionProps>`
       }
     }
   }
+
+  @media (max-width: 960px) {
+    footer {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
 `;
 
 export const UserInfoContainer = styled.div`
@@ -74,5 +81,9 @@ export const UserInfoContainer = styled.div`
     margin-left: 8px;
     color: ${({ theme }) => theme.colors.grayDark};
     font-size: 14px;
+  }
+
+  @media (max-width: 960px) {
+    margin-bottom: 0.53rem;
   }
 `;

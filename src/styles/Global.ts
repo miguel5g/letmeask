@@ -43,10 +43,9 @@ export const GlobalStyles = createGlobalStyle`
 
     min-width: 590px;
     min-height: 362px;
-
     padding: 64px;
-    border-radius: 8px;
 
+    border-radius: 8px;
     background: ${({ theme }) => theme.colors.whiteBackground};
 
     > strong {
@@ -67,22 +66,21 @@ export const GlobalStyles = createGlobalStyle`
     }
 
     > div {
-      margin-top: 40px;
       display: flex;
-      
       gap: 8px;
+      
+      margin-top: 40px;
       
       button {
         padding: 16px 34px;
 
+        background: ${({ theme }) => theme.colors.grayLight};
         border-radius: 8px;
         border: 0;
 
+        color: ${({ theme }) => theme.colors.grayDark};
         font-family: Roboto;
         font-size: 16px;
-
-        background: ${({ theme }) => theme.colors.grayLight};
-        color: ${({ theme }) => theme.colors.grayDark};
 
         transition: filter 0.2s;
 
@@ -100,6 +98,16 @@ export const GlobalStyles = createGlobalStyle`
           cursor: not-allowed;
         }
       }
+    }
+  }
+
+  :root {
+    font-size: 93.75%;
+  }
+  
+  @media (max-width: 960px) {
+    :root {
+      font-size: 87.5%;
     }
   }
 `;

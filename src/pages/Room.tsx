@@ -71,6 +71,8 @@ export const Room: React.FC = () => {
     questionId: string,
     likeId: string | undefined
   ) {
+    if (!user) return toast.error('Você precisa estar conectado');
+
     if (likeId) {
       await database
         .ref(`rooms/${roomId}/questions/${questionId}/likes/${likeId}`)

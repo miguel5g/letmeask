@@ -27,6 +27,16 @@ export const RoomContainer = styled.div`
       }
     }
   }
+
+  @media (max-width: 960px) {
+    main {
+      padding: 0 1.73rem;
+
+      > div > span {
+        display: none;
+      }
+    }
+  }
 `;
 
 export const HeaderContainer = styled.header`
@@ -51,6 +61,21 @@ export const HeaderContainer = styled.header`
 
       button {
         height: 40px;
+      }
+    }
+  }
+
+  @media (max-width: 960px) {
+    > div {
+      flex-direction: column;
+
+      > img {
+        max-height: 64px;
+        margin-bottom: 0.53rem;
+      }
+
+      > div {
+        flex-direction: column;
       }
     }
   }
@@ -110,6 +135,16 @@ export const FormContainer = styled.form`
         font-size: 14px;
         font-weight: 500;
         cursor: pointer;
+      }
+    }
+  }
+
+  @media (max-width: 960px) {
+    footer {
+      flex-direction: column-reverse;
+
+      > button {
+        margin-bottom: 0.53rem;
       }
     }
   }

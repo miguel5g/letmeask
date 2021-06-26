@@ -3,54 +3,83 @@ import styled from 'styled-components';
 export const AuthContainer = styled.div`
   display: flex;
   align-items: stretch;
+
   height: 100vh;
 
   aside {
-    flex: 7;
-
-    background: ${({ theme }) => theme.colors.purple};
-    color: #fff;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
+    flex: 7;
 
-    padding: 120px 80px;
+    padding: 8rem 5.33rem;
+
+    background: ${({ theme }) => theme.colors.purple};
+
+    color: #fff;
 
     img {
       max-width: 320px;
     }
 
     strong {
-      font: 700 36px 'Poppins', sans-serif;
-      line-height: 42px;
       margin-top: 16px;
+
+      font: 700 2.44rem 'Poppins', sans-serif;
+      line-height: 2.8rem;
     }
 
     p {
-      font-size: 24px;
-      line-height: 32px;
-      margin-top: 16px;
+      margin-top: 1.07rem;
+
       color: #fff;
+      font-size: 1.6rem;
+      line-height: 2.13rem;
+    }
+  }
+
+  @media (max-width: 960px) {
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+
+    aside {
+      align-items: center;
+
+      padding: 1.73rem;
+
+      img {
+        max-height: 192px;
+      }
+
+      strong {
+        font-size: 1.87rem;
+        text-align: center;
+      }
+
+      p {
+        font-size: 1.2rem;
+        text-align: center;
+      }
     }
   }
 `;
 
 export const MainContainer = styled.main`
-  flex: 8;
-
-  padding: 0 32px;
-
   display: flex;
   align-items: center;
   justify-content: center;
+  flex: 8;
+
+  padding: 2.13rem;
 
   > div {
     display: flex;
     flex-direction: column;
+    align-items: stretch;
+
     width: 100%;
     max-width: 320px;
-    align-items: stretch;
+
     text-align: center;
 
     > img {
@@ -58,18 +87,20 @@ export const MainContainer = styled.main`
     }
 
     h2 {
-      font-size: 24px;
       margin: 64px 0 24px;
+
+      font-size: 24px;
       font-family: 'Poppins', sans-serif;
     }
 
     form {
       input {
         height: 50px;
-        border-radius: 8px;
         padding: 0 16px;
+
         background: #fff;
         border: 1px solid ${({ theme }) => theme.colors.grayMedium};
+        border-radius: 8px;
       }
 
       button {
@@ -83,32 +114,39 @@ export const MainContainer = styled.main`
     }
 
     p {
-      font-size: 14px;
-      color: ${({ theme }) => theme.colors.grayDark};
       margin-top: 16px;
+
+      color: ${({ theme }) => theme.colors.grayDark};
+      font-size: 14px;
 
       a {
         color: ${({ theme }) => theme.colors.pinkDark};
       }
     }
   }
+
+  @media (max-width: 960px) {
+    flex: 0;
+  }
 `;
 
 export const CreateRoomButton = styled.button`
-  margin-top: 64px;
-  height: 50px;
-  border-radius: 8px;
-  font-weight: 500;
-  background: transparent;
-  color: ${({ theme }) => theme.colors.black};
-
   display: flex;
   justify-content: center;
   align-items: center;
 
-  cursor: pointer;
+  height: 50px;
+  margin-top: 64px;
+
+  border-radius: 8px;
+
+  background: transparent;
   border: 1px solid ${({ theme }) => theme.colors.grayMedium};
 
+  color: ${({ theme }) => theme.colors.black};
+  font-weight: 500;
+
+  cursor: pointer;
   transition: filter 0.2s;
 
   img {
@@ -121,26 +159,33 @@ export const CreateRoomButton = styled.button`
 `;
 
 export const Separator = styled.div`
-  font-size: 14px;
-  color: ${({ theme }) => theme.colors.grayMedium};
-
-  margin: 32px 0;
   display: flex;
   align-items: center;
 
+  margin: 32px 0;
+
+  color: ${({ theme }) => theme.colors.grayMedium};
+  font-size: 14px;
+
   &::before {
     content: '';
+
     flex: 1;
+
     height: 1px;
-    background: ${({ theme }) => theme.colors.grayMedium};
     margin-right: 16px;
+
+    background: ${({ theme }) => theme.colors.grayMedium};
   }
 
   &::after {
     content: '';
+
     flex: 1;
+
     height: 1px;
-    background: ${({ theme }) => theme.colors.grayMedium};
     margin-left: 16px;
+
+    background: ${({ theme }) => theme.colors.grayMedium};
   }
 `;

@@ -17,7 +17,16 @@ export const ThemeContextProvider: React.FC = ({ children }) => {
     const appTheme = localStorage.getItem('app-theme');
 
     if (appTheme === 'dark') return dark;
-    else return light;
+    else if (appTheme === 'light') return light;
+    else {
+      const darkThemeMq = window.matchMedia('(prefers-color-scheme: dark)');
+
+      if (darkThemeMq.matches) {
+        return dark;
+      } else {
+        return light;
+      }
+    }
   });
 
   useEffect(() => {

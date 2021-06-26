@@ -42,12 +42,20 @@ export function useRoom(roomId: string) {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isClosed, setIsClosed] = useState(false);
+  const [roomExist, setRoomExist] = useState(true);
 
   useEffect(() => {
     const roomRef = database.ref(`rooms/${roomId}`);
 
     roomRef.on('value', (room) => {
       const databaseRoom = room.val();
+
+      if (databaseRoom === null) {
+        setIsLoading(false);
+        setRoomExist(false);
+        return;
+      }
+
       const firebaseQuestions: FirebaseQuestions = databaseRoom.questions ?? {};
 
       const parsedQuestions = Object.entries(firebaseQuestions).map(
@@ -81,5 +89,5 @@ export function useRoom(roomId: string) {
     };
   }, [roomId, user?.id]);
 
-  return { questions, title, isAdmin, isLoading, isClosed };
+  return { questions, title, isAdmin, isLoading, isClosed, roomExist };
 }

@@ -4,7 +4,7 @@
       ".read": false,
       ".write": false,
       "$roomId": {
-        ".read": "!root.child('/rooms/' + $roomId + '/endedAt').exists() || data.child('authorId').val() == auth.uid ",
+        ".read": true,
         ".write": "auth != null && (!data.exists() || data.child('authorId').val() == auth.uid)",
         "questions": {
           ".read": "!root.child('/rooms/' + $roomId + '/endedAt').exists()",

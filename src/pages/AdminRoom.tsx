@@ -48,18 +48,16 @@ export const AdminRoom: React.FC = () => {
   const { title, questions, isAdmin, isLoading, isClosed } = useRoom(roomId);
 
   useEffect(() => {
-    if (!isLoading && !isAdmin) {
+    if (!isLoading && !isAdmin && !isClosed) {
       toast.error('Você não pode acessar esta página');
       history.replace('/');
     }
-  }, [isAdmin, isLoading, history]);
 
-  useEffect(() => {
     if (!isLoading && isClosed) {
       history.replace('/');
       toast.error('Sala encerrada');
     }
-  }, [history, isClosed, isLoading]);
+  }, [isAdmin, isLoading, history, isClosed]);
 
   function handleSingOut() {
     singOut();

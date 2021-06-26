@@ -39,7 +39,7 @@ export const Room: React.FC = () => {
   const roomId = params.id;
 
   const { theme, toggleTheme } = useTheme();
-  const { title, questions, isLoading, isClosed } = useRoom(roomId);
+  const { title, questions, isLoading, isClosed, roomExist } = useRoom(roomId);
 
   async function handleSendQuestion(event: React.FormEvent) {
     event.preventDefault();
@@ -88,6 +88,13 @@ export const Room: React.FC = () => {
       toast.error('Sala encerrada');
     }
   }, [history, isClosed, isLoading]);
+
+  useEffect(() => {
+    if (!isLoading && !roomExist) {
+      history.replace('/');
+      toast.error('Sala não encontrada');
+    }
+  }, [history, roomExist, isLoading]);
 
   return (
     <RoomContainer>
